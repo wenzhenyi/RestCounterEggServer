@@ -93,7 +93,7 @@ const computeFn = async (originToObjData, lprData) => {
   const DataArr = [];
   originToObjData.forEach(item => {
     const brorowObj = {
-      本金: item.本金,
+      本金: item.本金 * 1,
       起算时间: item.起算时间,
       截止时间: item.截止时间,
       合同约定年利率: item.合同约定年利率,
@@ -101,7 +101,7 @@ const computeFn = async (originToObjData, lprData) => {
     };
 
     const stillObj = {
-      还款金额: item.还款金额 || 0,
+      还款金额: item.还款金额 * 1 || 0,
       还款时间: item.还款时间,
       type: 'still',
     };
@@ -302,9 +302,12 @@ class ApiController extends Controller {
     // 重新计算数据
     const bodyData = ctx.request.body;
     console.log("inininin", bodyData);
+    const lprData = await getLPRData(this.app);
+    const computedData = await computeFn(bodyData, lprData)
+    console.log("data~~~~", computedData)
     ctx.body = {
       code: 1,
-      data: {}
+      data: computedData
     }
   }
 

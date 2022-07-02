@@ -32,14 +32,15 @@
   "scripts": {
     "start": "egg-scripts start --daemon --title=egg-server-RestCounterEggServer",
     "stop": "egg-scripts stop --title=egg-server-RestCounterEggServer",
-    "dev": "egg-bin dev",
+    "dev": "egg-bin dev --port 8889",
     "debug": "egg-bin debug",
     "test": "npm run lint -- --fix && npm run test-local",
     "test-local": "egg-bin test",
     "cov": "egg-bin cov",
     "lint": "eslint .",
     "ci": "npm run lint && npm run cov",
-    "autod": "autod"
+    "autod": "autod",
+    "pm2Start": "pm2 start egg-bin --name restCounterServer -- dev --port 8889"
   },
   "ci": {
     "version": "10"
